@@ -47,7 +47,26 @@ async def on_ready():
         log.info("Pterodactyl Detected!")
     else:
         log.info("Pterodactyl not found.")
+    @client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
+    help = [
+    'Hello! Welcome to the server.',
+    'Possible commands are:'
+    '`s!discords` - Lists all discords this bot is in.',
+    '`s!servers` - Lists all Minecraft servers this bot has access to',
+    '`s!help` - Shows this.'
+    ]
+
+
+    if message.content == 's!help':
+        response = help
+        await message.channel.send(response)
+
+    if message.author == client.user:
+    return
 
 #Login
 
