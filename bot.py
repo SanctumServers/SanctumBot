@@ -1,7 +1,6 @@
 import logging
 logging.basicConfig(level=logging.INFO)
-from discord import Member, Guild, TextChannel, Message, PermissionOverwrite, Role, \
-    CategoryChannel, Reaction, Embed, Color, Activity, Status, ActivityType
+import discord
 from discord.ext.commands import Bot, Context, check_any, CheckFailure
 import configparser
 import codecs
@@ -30,16 +29,16 @@ async def on_ready():
     #str(DISCORD_TYPE.lower())
 
     if(DISCORD_TYPE == "watching"):
-        await bot.change_presence(status=Status(DISCORD_STATUS), activity=Activity(type=ActivityType.watching, name=DISCORD_STATUS_NAME))
+        await bot.change_presence(status=discord.Status(DISCORD_STATUS), activity=discord.Activity(type=discord.ActivityType.watching, name=DISCORD_STATUS_NAME))
 
     elif(DISCORD_TYPE == "playing"):
-        await bot.change_presence(status=Status(DISCORD_STATUS), activity=Game(name=DISCORD_STATUS_NAME))
+        await bot.change_presence(status=discord.Status(DISCORD_STATUS), activity=discord.Game(name=DISCORD_STATUS_NAME))
 
     elif(DISCORD_TYPE == "listening"):
-        await bot.change_presence(status=Status(DISCORD_STATUS), activity=Activity(type=ActivityType.listening, name=DISCORD_STATUS_NAME))
+        await bot.change_presence(status=discord.Status(DISCORD_STATUS), activity=discord.Activity(type=discord.ActivityType.listening, name=DISCORD_STATUS_NAME))
 
     elif(DISCORD_TYPE == "streaming"):
-        await bot.change_presence(status=Status(DISCORD_STATUS), activity=Streaming(name=DISCORD_STATUS_NAME, url=DISCORD_TWITCH))
+        await bot.change_presence(status=discord.Status(DISCORD_STATUS), activity=discord.Streaming(name=DISCORD_STATUS_NAME, url=DISCORD_TWITCH))
 
     log.info(f"Bot is ready: logged in as {bot.user.name} ({bot.user.id})")
     log.info("Checking for Pterodactyl...")
@@ -47,26 +46,26 @@ async def on_ready():
         log.info("Pterodactyl Detected!")
     else:
         log.info("Pterodactyl not found.")
-    @client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+        @client.event
+        async def on_message(message):
+            if discord.message.author == discord.client.user:
+                return
 
-    help = [
-    'Hello! Welcome to the server.',
-    'Possible commands are:'
-    '`s!discords` - Lists all discords this bot is in.',
-    '`s!servers` - Lists all Minecraft servers this bot has access to',
-    '`s!help` - Shows this.'
-    ]
+                help = [
+                'Hello! Welcome to the server.',
+                'Possible commands are:'
+                '`s!discords` - Lists all discords this bot is in.',
+                '`s!servers` - Lists all Minecraft servers this bot has access to',
+                '`s!help` - Shows this.'
+                ]
 
 
-    if message.content == 's!help':
-        response = help
-        await message.channel.send(response)
+                if message.content == 's!help':
+                    response = help
+                    await message.channel.send(response)
 
-    if message.author == client.user:
-    return
+                    if message.author == client.user:
+                        return
 
 #Login
 
